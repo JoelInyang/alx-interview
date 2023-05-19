@@ -12,7 +12,7 @@ The following are what this method determines if a given data set represents a v
 
 
 def validUTF8(data):
-    """ UTF-8 Validation """
+    """ This is UTF-8 Validation """
     bytesLong = 0
     binaryMoveLeft7 = 1 << 7
     binaryMoveLeft6 = 1 << 6
