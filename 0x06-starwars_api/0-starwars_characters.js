@@ -1,26 +1,20 @@
-!/usr/bin/node
-// This is a script that prints all characters of a Star Wars movie:
+#!/usr/bin/node
+/* This is a  Star Wars Characters - Using the request module */
 const request = require('request');
+const urlApi = 'https://swapi-api.hbtn.io/api/films/';
 const movieId = process.argv[2];
-const options = {
-  url: 'https://swapi-api.alx-tools.com/api/films/' + movieId,
-  method: 'GET'
-};
-
-request(options, function (error, response, body) {
-  if (!error) {
-    const characters = JSON.parse(body).characters;
-    printCharacters(characters, 0);
-  }
+// Is a query API
+request(urlApi + movieId, (error, response, body) => {
+  if (error) throw error;
+  const characters = JSON.parse(body).characters;
+  showNames(characters);
 });
-
-function printCharacters (characters, index) {
-  request(characters[index], function (error, response, body) {
-    if (!error) {
-      console.log(JSON.parse(body).name);
-      if (index + 1 < characters.length) {
-        printCharacters(characters, index + 1);
-      }
-    }
+// Is show results on the console
+const showNames = (names, i = 0) => {
+  if (i === names.length) return;
+  request(names[i], (error, response, body) => {
+    if (error) throw error;
+    console.log(JSON.parse(body).name);
+    showNames(names, i + 1);
   });
-}
+};
